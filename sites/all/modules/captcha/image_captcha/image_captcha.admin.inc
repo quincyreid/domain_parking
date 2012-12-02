@@ -1,5 +1,4 @@
 <?php
-// $Id: image_captcha.admin.inc,v 1.30.2.2 2010/11/29 23:33:37 soxofaan Exp $
 
 /**
  * @file
@@ -13,12 +12,13 @@
  */
 function image_captcha_settings_form() {
 
-  // Add CSS for theming of admin form.
-  drupal_add_css(drupal_get_path('module', 'image_captcha') .'/image_captcha.css');
-  // Use javascript for some added usability on admin form.
-  drupal_add_js(drupal_get_path('module', 'image_captcha') .'/image_captcha.js');
-
   $form = array();
+
+  // Add CSS for theming of admin form.
+  $form['#attached']['css'] = array(drupal_get_path('module', 'image_captcha') . '/image_captcha.css');
+  // Use javascript for some added usability on admin form.
+  $form['#attached']['js'] = array(drupal_get_path('module', 'image_captcha') . '/image_captcha.js');
+
 
   // First some error checking.
   $setup_status = _image_captcha_check_setup(FALSE);
@@ -61,7 +61,7 @@ function image_captcha_settings_form() {
   );
   // RTL support option (only show this option when there are RTL languages).
   $languages = language_list('direction');
-  if ($languages[1]) {
+  if (isset($languages[LANGUAGE_RTL])) {
     $form['image_captcha_code_settings']['image_captcha_rtl_support'] = array(
       '#type' => 'checkbox',
       '#title' => t('RTL support'),
@@ -100,11 +100,11 @@ function image_captcha_settings_form() {
     '#type' => 'select',
     '#title' => t('Additional variation of text color'),
     '#options' => array(
-      0 => t('none'),
-      50 => t('small'),
-      100 => t('moderate'),
-      150 => t('high'),
-      200 => t('very high'),
+      0 => t('No variation'),
+      50 => t('Little variation'),
+      100 => t('Medium variation'),
+      150 => t('High variation'),
+      200 => t('Very high variation'),
     ),
     '#default_value' => (int) variable_get('image_captcha_foreground_color_randomness', 100),
     '#description' => t('The different characters will have randomized colors in the specified range around the text color.'),
@@ -170,13 +170,13 @@ function image_captcha_settings_form() {
     '#type' => 'select',
     '#title' => t('Noise level'),
     '#options' => array(
-      1 => '1 - '. t('low'),
+      1 => '1 - ' . t('low'),
       2 => '2',
-      3 => '3 - '. t('medium'),
+      3 => '3 - ' . t('medium'),
       4 => '4',
-      5 => '5 - '. t('high'),
+      5 => '5 - ' . t('high'),
       7 => '7',
-      10 => '10 - '. t('severe'),
+      10 => '10 - ' . t('severe'),
     ),
     '#default_value' => (int) variable_get('image_captcha_noise_level', 5),
   );
@@ -212,11 +212,11 @@ function _image_captcha_settings_form_font_section() {
   // First check if there is TrueType support.
   $setup_status = _image_captcha_check_setup(FALSE);
   if ($setup_status & IMAGE_CAPTCHA_ERROR_NO_TTF_SUPPORT) {
-	// Show a warning that there is no TrueType support
+    // Show a warning that there is no TrueType support
     $form['no_ttf_support'] = array(
       '#type' => 'item',
       '#title' => t('No TrueType support'),
-      '#value' => t('The Image CAPTCHA module can not use TrueType fonts because your PHP setup does not support it. You can only use a PHP built-in bitmap font of fixed size.'),
+      '#markup' => t('The Image CAPTCHA module can not use TrueType fonts because your PHP setup does not support it. You can only use a PHP built-in bitmap font of fixed size.'),
     );
 
   }
@@ -233,25 +233,16 @@ function _image_captcha_settings_form_font_section() {
     variable_set('image_captcha_fonts_preview_map_cache', $fonts);
     // Put these fonts with preview image in the list
     foreach ($fonts as $token => $font) {
-      $img_src = check_url(url('admin/user/captcha/image_captcha/font_preview/'. $token));
-      $title = t('Font preview of @font (@file)', array('@font' => $font->name, '@file' => $font->filename));
-      $available_fonts[$font->filename] = '<img src="'. $img_src .'" alt="'. $title .'" title="'. $title .'" />';
-    }
-
-    // We only show the name of fonts from the files directory
-    // and do not provide a preview for security reasons:
-    // files in files directory can be uploaded by normal or even anonymous
-    // users and should not be trusted.
-    $fonts = _image_captcha_get_available_fonts_from_directories(array(file_directory_path()));
-    foreach ($fonts as $font) {
-      $available_fonts[$font->name] = $font->name ." ($font->filename)";
+      $img_src = check_url(url('admin/config/people/captcha/image_captcha/font_preview/' . $token));
+      $title = t('Font preview of @font (@file)', array('@font' => $font->name, '@file' => $font->uri));
+      $available_fonts[$font->uri] = '<img src="' . $img_src . '" alt="' . $title . '" title="' . $title . '" />';
     }
 
     // Append the PHP built-in font at the end.
-    $img_src = check_url(url('admin/user/captcha/image_captcha/font_preview/BUILTIN'));
+    $img_src = check_url(url('admin/config/people/captcha/image_captcha/font_preview/BUILTIN'));
     $title = t('Preview of built-in font');
     $available_fonts['BUILTIN'] = t('PHP built-in font: !font_preview',
-      array('!font_preview' => '<img src="'. $img_src .'" alt="'. $title .'" title="'. $title .'" />')
+      array('!font_preview' => '<img src="' . $img_src . '" alt="' . $title . '" title="' . $title . '" />')
     );
 
     $default_fonts = _image_captcha_get_enabled_fonts();
@@ -259,16 +250,15 @@ function _image_captcha_settings_form_font_section() {
       '#type' => 'checkboxes',
       '#title' => t('Fonts'),
       '#default_value' => $default_fonts,
-      '#description' => t('Select the fonts to use for the text in the image CAPTCHA. Apart from the provided defaults, you can also use your own TrueType fonts (filename extension .ttf) by putting them in %fonts_library_general or %fonts_library_specific. You can also upload them to the "files" directory of your site (%filesdir), e.g. with the "Upload" module, but those fonts will not get a preview for security reasons.',
+      '#description' => t('Select the fonts to use for the text in the image CAPTCHA. Apart from the provided defaults, you can also use your own TrueType fonts (filename extension .ttf) by putting them in %fonts_library_general or %fonts_library_specific.',
         array(
           '%fonts_library_general' => 'sites/all/libraries/fonts',
-          '%fonts_library_specific' => conf_path() .'/libraries/fonts',
-          '%filesdir' => file_directory_path(),
+          '%fonts_library_specific' => conf_path() . '/libraries/fonts',
         )
       ),
       '#options' => $available_fonts,
-      '#attributes' => array('class' => 'image_captcha_admin_fonts_selection'),
-      '#process' => array('expand_checkboxes', 'image_captcha_columnify_font_selection'),
+      '#attributes' => array('class' => array('image_captcha_admin_fonts_selection')),
+      '#process' => array('form_process_checkboxes'),
     );
 
 
@@ -325,15 +315,15 @@ function _image_captcha_get_available_fonts_from_directories($directories=NULL) 
   // If no fonts directories are given: use the default.
   if ($directories === NULL) {
     $directories = array(
-      drupal_get_path('module', 'image_captcha') .'/fonts',
+      drupal_get_path('module', 'image_captcha') . '/fonts',
       'sites/all/libraries/fonts',
-      conf_path() .'/libraries/fonts',
+      conf_path() . '/libraries/fonts',
     );
   }
   // Collect the font information.
   $fonts = array();
   foreach ($directories as $directory) {
-    foreach (file_scan_directory($directory, '\.[tT][tT][fF]$') as $filename => $font) {
+    foreach (file_scan_directory($directory, '/\.[tT][tT][fF]$/') as $filename => $font) {
       $fonts[md5($filename)] = $font;
     }
   }
@@ -342,22 +332,6 @@ function _image_captcha_get_available_fonts_from_directories($directories=NULL) 
 }
 
 
-/**
- * Additional processing (after Drupal core's expand_checkboxes)
- * to put the font previews in a multi-column layout.
- */
-function image_captcha_columnify_font_selection($element) {
-  // Get the fonts that get a preview.
-  $fonts = variable_get('image_captcha_fonts_preview_map_cache', array());
-  // And add some markup so we can put them in column layout.
-  foreach ($fonts as $font) {
-    $element[$font->filename]['#prefix'] = '<div class="image_captcha_admin_font_preview">';
-    $element[$font->filename]['#suffix'] = '</div>';
-  }
-
-  return $element;
-
-}
 /**
  * Validation function for image_captcha configuration form
  */
@@ -424,7 +398,7 @@ function image_captcha_font_preview($font_token) {
       exit();
     }
     // Get the font path.
-    $font = $fonts[$font_token]->filename;
+    $font = $fonts[$font_token]->uri;
     // Some sanity checks if the given font is valid.
     if (!is_file($font) || !is_readable($font)) {
       echo('bad font');
@@ -457,7 +431,7 @@ function image_captcha_font_preview($font_token) {
   }
 
   // Set content type.
-  drupal_set_header("Content-type: image/png");
+  drupal_add_http_header('Content-Type', 'image/png');
   // Dump image data to client.
   imagepng($image);
   // Release image memory.

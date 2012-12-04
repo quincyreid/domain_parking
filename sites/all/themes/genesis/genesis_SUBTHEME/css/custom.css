@@ -1,0 +1,18 @@
+/* $Id: custom.css,v 1.1 2010/06/24 23:08:18 jmburnz Exp $ */
+
+/**********************************************************
+ *                 Custom Styles
+ **********************************************************/
+/**
+ * Here you can add custom stles for your theme that do not fit
+ * into one if the modular stylesheets.
+ */
+
+/* Workaround for Admin menu bar shadow */
+html body.admin-menu {
+  margin-top:45px !important;
+}
+
+
+
+

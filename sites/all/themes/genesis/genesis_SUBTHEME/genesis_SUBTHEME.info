@@ -1,0 +1,105 @@
+; $Id: genesis_SUBTHEME.info,v 1.25 2011/01/14 03:12:40 jmburnz Exp $
+
+; Change the name to match your new subthemes name and modify the description.	
+  name         = Genesis SUBTHEME
+  description  = My Kickn' Sub-theme
+  core         = 7.x
+  engine       = phptemplate
+  screenshot   = genesis-subtheme.png
+  base theme   = genesis
+
+; Uncomment for a Dark style theme. @TODO - need to revamp dark css.
+  ;stylesheets[all][] = css/dark/dark.css
+
+; Uncomment if using Gpanels.
+  ;stylesheets[all][] = css/gpanels/gpanels-fluid.css
+
+; Subtheme modular stylsheets.
+  stylesheets[all][] = css/html-elements.css
+  stylesheets[all][] = css/page.css
+  stylesheets[all][] = css/fields.css
+  stylesheets[all][] = css/nodes.css
+  stylesheets[all][] = css/blocks.css
+  stylesheets[all][] = css/comments.css
+  stylesheets[all][] = css/navigation.css
+  stylesheets[all][] = css/views-styles.css
+  stylesheets[all][] = css/custom.css
+
+; The regions defined in the page.tpl.php file. The name in brackets is the 
+; name of the variable. The text after the = sign is the short description 
+; you see on the block configuration page.
+  regions[sidebar_first]      = Sidebar first
+  regions[sidebar_second]     = Sidebar second
+  regions[content]            = Main Content
+  regions[highlighted]        = Highlighted
+  regions[leaderboard]        = Leaderboard
+  regions[header]             = Header
+  regions[secondary_content]  = Secondary
+  regions[tertiary_content]   = Tertiary
+  regions[footer]             = Footer
+  regions[help]               = Help
+  regions[page_top]           = Page top
+  regions[page_bottom]        = Page bottom
+
+  ; Gpanel Regions - use in conjunction with the Gpanel snippets.
+  ; See /gpanels and the README in that folder.
+  ; Uncomment the required regions.
+
+  ; 2 col 2 x 50
+  ;regions[two_50_first]  = GP 2 x 50% First
+  ;regions[two_50_second] = GP 2 x 50% Second
+
+  ; 2 col 33-66
+  ;regions[two_33_66_first]  = GP 33% 66% - First
+  ;regions[two_33_66_second] = GP 33% 66% - Second
+
+  ; 2 col 66-33
+  ;regions[two_66_33_first]  = GP 66% 33% - First
+  ;regions[two_66_33_second] = GP 66% 33% - Second
+
+  ; 3 col 3 x 33
+  ;regions[three_33_first]  = GP 3 x 33% - First
+  ;regions[three_33_second] = GP 3 x 33% - Second
+  ;regions[three_33_third]  = GP 3 x 33% - Third
+
+  ; 3 col 25-25-50
+  ;regions[three_25_25_50_first]  = GP 25% 25% 50% - First
+  ;regions[three_25_25_50_second] = GP 25% 25% 50% - Second
+  ;regions[three_25_25_50_third]  = GP 25% 25% 50% - Third
+  
+  ; 3 col 50-25-25
+  ;regions[three_50_25_25_first]  = GP 50% 25% 25% - First
+  ;regions[three_50_25_25_second] = GP 50% 25% 25% - Second
+  ;regions[three_50_25_25_third]  = GP 50% 25% 25% - Third
+
+  ; 4 col 4 x 25
+  ;regions[four_first]  = GP 4 x 25% - First
+  ;regions[four_second] = GP 4 x 25% - Second
+  ;regions[four_third]  = GP 4 x 25% - Third
+  ;regions[four_fourth] = GP 4 x 25% - Fourth
+
+  ; 5 col 5 x 20
+  ;regions[five_first]  = GP 5 x 20% - First
+  ;regions[five_second] = GP 5 x 20% - Second
+  ;regions[five_third]  = GP 5 x 20% - Third
+  ;regions[five_fourth] = GP 5 x 20% - Fourth
+  ;regions[five_fifth]  = GP 5 x 20% - Fifth
+
+  ; 6 col 6 x 16
+  ;regions[six_first]  = GP 6 x 16% - First
+  ;regions[six_second] = GP 6 x 16% - Second
+  ;regions[six_third]  = GP 6 x 16% - Third
+  ;regions[six_fourth] = GP 6 x 16% - Fourth
+  ;regions[six_fifth]  = GP 6 x 16% - Fifth
+  ;regions[six_sixth]  = GP 6 x 16% - Sixth
+
+; Shorcuts link, set to 1 enable. Disabled by default since this 
+; will seldom make sense in a front end theme.
+  settings[shortcut_module_link] = 0
+
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "7.x-1.1"
+core = "7.x"
+project = "genesis"
+datestamp = "1295212296"
+

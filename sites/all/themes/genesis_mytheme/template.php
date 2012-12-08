@@ -13,9 +13,14 @@
 /**
  * Override or insert variables into all templates.
  */
-/* -- Delete this line if you want to use these functions
+
 function genesis_mytheme_preprocess(&$vars, $hook) {
+  dpm($variables);
+  $variables['site_name'] = 'site_name';
+  $request_path = variable_get($_SERVER['site_name']);
 }
+
+/* -- Delete this line if you want to use these functions
 function genesis_mytheme_process(&$vars, $hook) {
 }
 // */

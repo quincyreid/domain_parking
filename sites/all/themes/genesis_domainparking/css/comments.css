@@ -1,0 +1,46 @@
+/* $Id: comments.css,v 1.3 2010/01/11 07:32:49 jmburnz Exp $ */
+
+/**
+ * @file comments.css
+ * Basic styles for comments.
+ */
+
+/**********************************************************
+ *                     Comments
+ **********************************************************/	
+.comment {
+  margin: 0 0 1em;
+}
+
+/* Over-ride default .inner styles. */
+.comment-inner {}
+
+.comment .indented {
+  margin-left: 2em; /* LTR */
+}
+
+/* The title of each comment. */
+.comment-title {}
+
+.comment-id {}
+.comment-title .new {color: #FF8000;}
+
+.comment-title a:link,
+.comment-title a:visited,
+.comment-title a:active {
+  text-decoration: none;
+}
+
+.comment-title a:hover {
+  text-decoration: underline;
+}
+
+.comment .user-picture {
+  float: right; /* RTL */
+  margin: 0.3em 0 0.1em 0.5em; /* LTR */
+}
+
+.comment .links {
+  text-align: right; /* LTR */
+  clear: both;
+}

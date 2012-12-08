@@ -1,0 +1,137 @@
+/* $Id: page.css,v 1.13 2011/01/14 03:12:40 jmburnz Exp $ */
+
+/**********************************************************
+ *                    Body Classes
+ **********************************************************/
+
+body {
+  padding: 0 10px;
+  margin: 0 auto 0 auto;
+}
+	
+#container {
+  width: 960px;
+}
+
+#page-title {
+  display: none;
+}
+
+#content div.block-inner h2 {
+  display: none;
+}
+
+/* Main menu wrapper */
+#main-menu {
+  display: none;
+}
+
+
+/**********************************************************
+ *                 Header Elements
+ **********************************************************/
+
+#header {
+  margin-top: 100px;
+}
+
+/* #branding wraps #logo, #site-name and #site-slogan. */
+#branding {
+  text-align: center;
+}
+
+/* h1 is for the front page only, all others use the div. */
+#branding h1 {
+  font-size: 1em; /* reset h1, do not change! */
+} 
+
+/* Remove display:block if you want the site name inline with the logo. */
+.logo-site-name span {
+  display: block;
+}
+
+/* Logo. */
+#logo {
+  display: none;
+}
+
+#site-name {
+  font-weight: bold; /* Bold or else the line heights vary. */
+  font-size: 2em;
+  line-height: 1.5;
+}
+
+/* Override default pseudo class styles. */
+#site-name a:link,
+#site-name a:visited {
+  text-decoration: none;
+}
+
+#site-name a:hover,
+#site-name a:focus,
+#site-name a:active  {
+  text-decoration: none;
+}
+
+div.breadcrumb {
+  display: none;
+}
+
+div.error {
+  display: none;
+}
+
+/**********************************************************
+ *                       Regions
+ **********************************************************/
+/* Target all regions - be careful with this one, its easily 
+ * over-ridden and will target sidebar inner DIVS as well.
+ */
+
+/* Header blocks */
+#header-blocks {
+  float: right;
+}
+
+fieldset.captcha legend {
+  display: none;
+}
+
+div.field-item {
+  text-align: center;
+}
+
+
+#webform-client-form-3 div.webform-component {
+  text-align: center;
+}
+
+#edit-actions {
+  text-align: center;
+}
+
+#first-time {
+  display: none;
+}
+
+/**********************************************************
+ *          Search form, Search results
+ *          For the search block see blocks.css
+ **********************************************************/
+
+/* Search results list. */
+ol.search-results {
+  padding: 0;
+  margin: 0;
+}
+
+/**********************************************************
+ *                Footer, RSS Feed Icon
+ **********************************************************/
+#footer {
+  margin: 0.375em 0;
+}
+
+.feed-icon img {
+  padding:0 0.5em;
+}

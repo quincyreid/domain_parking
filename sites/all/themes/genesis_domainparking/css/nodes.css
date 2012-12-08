@@ -1,0 +1,25 @@
+/* $Id: nodes.css,v 1.4 2010/06/24 23:08:18 jmburnz Exp $ */
+
+/**********************************************************
+ *                      Nodes
+ **********************************************************/
+
+.node {
+  margin: 0 0 1.5em;
+}
+
+/* Title */
+.node-title a {
+  text-decoration: none;
+}
+
+.node-title a:hover,
+.node-title a:focus {
+  text-decoration: underline;
+}
+
+/* User picture */
+.node .user-picture {
+  float: right;
+  margin: 0.3em 0 0.5em 1em;
+}

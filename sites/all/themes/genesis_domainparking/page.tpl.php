@@ -1,8 +1,6 @@
 <?php
 // $Id: page.tpl.php,v 1.13 2011/01/14 03:34:24 jmburnz Exp $
 /**
- * @file
- * Default theme implementation to display a single Drupal page.
 * @see template_preprocess()
 * @see template_preprocess_page()
 * @see template_process()
